@@ -1,0 +1,133 @@
+1) Add Column
+ALTER TABLE table_name
+ADD 
+    column_name_1 data_type_1 column_constraint_1,
+    column_name_2 data_type_2 column_constraint_2,
+    ...,
+    column_name_n data_type_n column_constraint_n;
+
+
+
+
+2) Modify Column
+
+--Modify the data type
+--Change the size
+--Add a NOT NULL constraint
+
+
+ALTER TABLE table_name 
+ALTER COLUMN column_name new_data_type(size);
+
+
+
+
+3) Drop Column
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+
+
+
+
+
+4) Add constraint
+
+
+
+5) Drop constraint
+
+
+
+6**) Rename table , column:
+
+-- Rename table:
+
+EXEC sp_rename 'table_old_name' , 'table_new_name' ; 
+
+
+
+-- Rename column:
+
+EXEC sp_rename 'table_name.column_old_name' ,'column_new_name' , 'COLUMN  => object type' ;
+
+
+*************************** Code **
+1) Add Column
+
+ALTER TABLE stores 
+ADD street VARCHAR(20) NOT NULL;
+
+
+
+2) Modify Column
+
+ALTER TABLE stores 
+ALTER COLUMN store_name varchar(50);
+
+
+
+ALTER TABLE stores 
+ALTER COLUMN city varchar(25) null;
+
+
+
+
+3) Drop Column
+
+ALTER TABLE stores 
+DROP COLUMN fax;
+
+
+
+
+
+4) Add constraint:
+
+
+alter table stores
+add constraint stores_name_uq unique (store_name);
+
+
+
+
+
+
+ALTER TABLE products
+ADD CONSTRAINT products_pk PRIMARY KEY (product_id);
+
+
+ALTER TABLE products
+ADD CONSTRAINT products_brands_fk FOREIGN KEY (brand_id) 
+REFERENCES brands (brand_id);
+
+
+
+
+
+
+
+
+
+
+5) Drop constraint
+
+
+ALTER TABLE stores 
+DROP CONSTRAINT stores_name_uq;
+
+
+
+
+
+6**) Rename table , column:
+
+
+EXEC sp_rename 'staff' , 'workers';
+
+EXEC sp_rename 'categories.category_name' , 'cname' , 'COLUMN';
+
+
+
+

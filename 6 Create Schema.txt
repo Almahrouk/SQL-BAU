@@ -1,0 +1,16 @@
+USE database_name;
+GO
+
+CREATE SCHEMA schema_name;
+    [AUTHORIZATION owner_name]    =>> Optional
+
+
+
+*************************** My Code:
+
+use Salas
+go
+
+CREATE SCHEMA sales_schema;
+
+CREATE SCHEMA production;

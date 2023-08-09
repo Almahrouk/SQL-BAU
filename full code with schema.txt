@@ -1,0 +1,284 @@
+USE MASTER;
+CREATE DATABASE BikeStores;
+
+
+use BikeStores
+go
+--CREATE SCHEMA sales;
+--CREATE SCHEMA production;
+
+
+
+USE BikeStores
+GO
+CREATE TABLE BikeStores.sales.customers (
+	customer_id int identity(1,1),             
+	first_name varchar(20) not null,
+	last_name varchar(20) not null,
+	phone varchar(15),
+	email varchar(30) not null,
+	street varchar(30) not null,
+	city varchar(10) not null,      --check (city in ('Riyadh','Macca','Madina'))
+	state varchar(15),
+	zip_code varchar(5),
+
+	constraint customers_pk primary key (customer_id), 
+	constraint customers_uq unique (phone)
+);
+
+
+CREATE TABLE BikeStores.sales.orders (
+	order_id int not null,     --identity(1,1)  (beigne,step jump)
+	order_status tinyint not null,
+	order_date date not null,
+	
+	-- order_type varchar(10),
+	required_data date not null,
+	shipped_data date, 
+	
+	customer_no int,          -- one or zero      0| 
+	store_no int not null,    -- one and only one ||
+	staff_no int not null,    -- one and only one ||
+	item_no int,              -- one or zero      0|
+ 
+	constraint orders_pk primary key (order_id),
+
+	--constraint orders_customers_fk foreign key (customer_no) 
+	--references customers (customer_id) 
+	
+	--constraint orders_stores_fk foreign key (store_no) 
+	--references stores (store_id)
+
+	--constraint orders_staffs_fk foreign key (staff_no) 
+	--references staffs (staff_id)
+);
+
+
+CREATE TABLE BikeStores.sales.staffs (
+	staff_id int not null identity(1,1),
+	first_name varchar(20) not null,
+	last_name varchar(20) not null,
+	phone varchar(15) unique,
+	email varchar(40) not null unique,
+	active tinyint not null,
+	
+
+	--salary numeric(7,2)  not null,                       => xxxxx.xx
+	--hire_data date,
+
+	store_no int,
+	staff_no int,
+
+	constraint staff_pk primary key (staff_id),
+	
+	--constraint staff_chk check (salary between 3000 and 15000),
+
+	--constraint staffs_stores_fk foreign key (store_no) 
+	--references stores (store_id)
+
+	--constraint staffs_managers_fk foreign key (store_no) 
+	--references managers (manager_id)
+);
+
+
+
+CREATE TABLE BikeStores.sales.stores (
+	store_id int identity(1,1),
+	store_name varchar(30) not null,
+	phone varchar(15),
+	email varchar(30),
+	street varchar(20), 
+	city varchar(20) not null,
+	state varchar(10),
+	zip_code varchar(5),
+
+	constraint store_pk primary key (store_id),
+	constraint stores_name_uq unique (store_name)
+	
+);
+
+
+
+
+
+
+CREATE TABLE BikeStores.sales.order_items (      
+	items_id int not null,
+	quantity int ,
+	list_price varchar(100),
+	discount numeric(5,3),
+
+	order_no int not null,     --fk
+	product_no int,
+
+	--constraint order_items_pk1 primary key (order_id) ,
+	constraint order_items_pk primary key (items_id) ,
+
+	--constraint items_products_fk foreign key (product_no) 
+	--references products (product_id)
+);
+
+
+
+------------------------- Now For 2nd Schema
+
+
+
+CREATE TABLE BikeStores.production.categories (
+	category_id int identity(1,1),             --Auto insert
+	category_name varchar(20) not null,
+
+	constraint category_pk primary key (category_id) 
+);
+
+
+
+
+CREATE TABLE BikeStores.production.products (
+	product_id int not null,
+	product_name varchar(10),
+	model_year int,
+	list_price numeric(8,2),
+
+
+	brand_no int,
+	category_no int,
+
+	
+
+	constraint products_pk primary key (product_id),
+
+	--constraint products_brands_fk foreign key (brand_no) 
+	--references brands (brand_id) 
+
+	--constraint products_categories_fk foreign key (category_no) 
+	--references brands (category_id) 
+	
+);
+
+
+CREATE TABLE BikeStores.production.stocks (
+	store_id int not null,
+	product_id int not null,
+	quantity int ,
+
+	constraint stocks_pk1 primary key (store_id),
+	--constraint stocks_pk2 primary key (product_id)
+ 
+);
+
+
+
+
+CREATE TABLE BikeStores.production.brands (
+	brand_id int not null,
+	brand_name varchar(20) not null,
+
+	constraint brand_pk primary key (brand_id) 
+);
+
+
+
+
+
+
+-------------------------  all forign key constrain
+
+alter table BikeStores.sales.orders
+add 	
+	constraint orders_customers_fk foreign key (customer_no) 
+	references BikeStores.sales.customers (customer_id), 
+	
+	constraint orders_stores_fk foreign key (store_no) 
+	references BikeStores.sales.stores (store_id),
+
+	constraint orders_staffs_fk foreign key (staff_no) 
+	references BikeStores.sales.staffs (staff_id),
+	
+	constraint orders_items_fk foreign key (item_no) 
+	references BikeStores.sales.order_items (items_id)
+	;
+
+
+
+alter table BikeStores.sales.staffs
+add
+	
+	constraint staffs_stores_fk foreign key (store_no) 
+	references BikeStores.sales.stores (store_id),
+
+	constraint staffs_staffs_fk foreign key (staff_no) 
+	references BikeStores.sales.staffs (staff_id);
+
+
+
+
+alter table BikeStores.sales.stores
+add stock_no int ;
+
+
+alter table BikeStores.sales.stores
+add 
+	--constraint stores_name_uq unique (store_name)
+
+	constraint sales_stocks_fk foreign key (stock_no) 
+	references BikeStores.production.stocks (store_id);
+
+
+
+
+alter table BikeStores.sales.order_items
+add 
+	
+	constraint items_products_fk foreign key (product_no) 
+	references BikeStores.production.products (product_id);
+
+
+
+
+
+
+alter table BikeStores.production.products
+add stock_no int ;
+
+
+ALTER TABLE BikeStores.production.products
+ADD 
+	CONSTRAINT products_category_fk FOREIGN KEY (category_no) 
+	REFERENCES BikeStores.production.categories (category_id),
+
+	CONSTRAINT products_stocks_fk FOREIGN KEY (stock_no) 
+	REFERENCES BikeStores.production.stocks (store_id),
+
+
+	CONSTRAINT products_brands_fk FOREIGN KEY (brand_no) 
+	REFERENCES BikeStores.production.brands (brand_id);
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------
+
+-- insert into
+
+
+
+insert into BikeStores.production.categories(category_name)
+values ('Weels');
+
+
+--insert into categories(category_name)
+--values ('Weels');
+
+
+
+

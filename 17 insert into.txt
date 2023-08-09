@@ -1,0 +1,52 @@
+INSERT INTO table_name (column_list)
+VALUES (value_list);
+
+
+
+
+EX:
+INSERT INTO sales.promotions (
+    promotion_name,
+    discount,
+    start_date,
+    expired_date
+)
+VALUES
+    (
+        '2018 Summer Promotion',
+        0.15,
+        '20180601',
+        '20180901'
+    );
+
+
+
+***************************
+
+
+insert into categories (category_name)
+value ('Weels');
+
+
+
+
+insert into customers (first_name,last_name,email)
+value ('Ahmed','Ali','a.ali@gmail.com');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

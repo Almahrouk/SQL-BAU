@@ -1,0 +1,40 @@
+USE MASTER;
+CREATE DATABASE database_name;
+
+
+************************************
+
+DROP DATABASE database_name;
+
+***********************************
+
+
+USE MASTER;
+GO
+CREATE DATABASE database_name;
+ON (
+	Name = database_name,
+	
+	FileName = 'C:\Program Files\Microsoft SQL Server\MSSQL 16.MSSQL SERVER\MSSQL\DATA\database_name.mdf',
+	SIZE = 10,
+	MAXSIZE = 50,
+	FILEGROWTH = 5
+)
+
+ON (
+	Name = database_name_log,
+	
+	FileName = 'C:\Program Files\Microsoft SQL Server\MSSQL 16.MSSQL SERVER\MSSQL\DATA\database_name.ldf',
+	SIZE = 10,
+	MAXSIZE = 50,
+	FILEGROWTH = 5
+)
+
+GO
+
+
+
+
+
+
+

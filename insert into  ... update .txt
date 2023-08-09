@@ -1,0 +1,105 @@
+INSERT INTO table_name (column_list)
+VALUES (value_list);
+
+
+
+
+INSERT INTO sales.promotions (
+    promotion_name,
+    discount,
+    start_date,
+    expired_date
+)
+VALUES
+    (
+        '2018 Summer Promotion',
+        0.15,
+        '20180601',
+        '20180901'
+    );
+
+
+-----------------------------------------------
+
+
+INSERT INTO sales.promotions (
+    promotion_name,
+    discount,
+    start_date,
+    expired_date
+) OUTPUT inserted.promotion_id,
+ inserted.promotion_name,
+ inserted.discount,
+ inserted.start_date,
+ inserted.expired_date
+VALUES
+    (
+        '2018 Winter Promotion',
+        0.2,
+        '20181201',
+        '20190101'
+    );
+
+
+
+
+--------------------------------------------
+-------------------------------------------
+
+
+
+
+
+
+UPDATE table_name
+SET c1 = v1, c2 = v2, ... cn = vn
+[WHERE condition]
+
+
+
+
+UPDATE sales.taxes
+SET max_local_tax_rate += 0.02,
+    avg_local_tax_rate += 0.01
+WHERE
+    max_local_tax_rate = 0.01;
+
+
+
+
+
+
+
+---------------------------------------------
+--------------------------------------------
+
+
+
+SQL Server DELETE
+
+
+
+DELETE [ TOP ( expression ) [ PERCENT ] ]  
+FROM table_name
+[WHERE search_condition];
+
+
+
+
+DELETE TOP 10 FROM target_table;  
+
+
+
+DELETE TOP (21)
+FROM production.product_history;
+
+
+
+
+
+DELETE
+FROM
+    production.product_history
+WHERE
+    model_year = 2017;
+
