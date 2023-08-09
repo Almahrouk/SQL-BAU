@@ -1,0 +1,42 @@
+= 	Equal to
+
+< 	Less than
+> 	Greater than
+
+<= 	Less than or equal to
+>= 	Greater than or equal to
+
+!= 	Not equal to
+<> 	Not equal to
+
+************************************
+
+AND 	Returns TRUE if 	both component conditions are true
+OR 	Returns TRUE if 	either component condition is true
+NOT 	Returns TRUE if 	the following condition is false
+
+************************************
+************************************
+
+SELECT productid, productname, vendorid, productprice
+FROM product
+WHERE productprice > 100;
+
+////////////////////////////////////
+
+SELECT productid, productname, vendorid, productprice
+FROM product
+WHERE productprice <= 110 AND categoryid = 'FW';
+
+
+///////////////////////////////////
+
+SELECT vendorid
+FROM product;
+
+************** use DISTINCT >>> بدون تكرار
+
+SELECT DISTINCT vendorid
+FROM product;
+
+

@@ -1,0 +1,23 @@
+SELECT productid, productname, productprice, vendorid, categoryid
+FROM product;
+
+
+//////////////////////////
+
+SELECT *
+FROM product;
+
+////////////////////////
+
+SELECT productname, productid, vendorid, categoryid, productprice
+FROM product;
+
+//////////////////////////
+
+SELECT productid, productprice
+FROM product;
+
+////////////////////////
+
+SELECT productid, productprice, productprice * 1.1
+FROM product;

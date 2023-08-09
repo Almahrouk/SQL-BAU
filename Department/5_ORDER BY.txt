@@ -1,0 +1,33 @@
+///// ORDER BY : ترتيب
+• Sort retrieved rows with the ORDER BY clause:
+o ASC: ascending order, default >>> ترتيب تصاعدي
+o DESC: descending order        >>> ترتيب تنازلي
+
+
+////////////////////////////
+
+**********************  ASC
+
+SELECT productid, productname, categoryid, productprice
+FROM product
+WHERE categoryid = 'FW'
+ORDER BY productprice;
+
+
+
+*********************** DESC
+
+SELECT productid, productname, categoryid, productprice
+FROM product
+WHERE categoryid = 'FW'
+ORDER BY productprice DESC;
+
+
+
+*********************** Two Column
+
+SELECT productid, productname, categoryid, productprice
+FROM product
+ORDER BY categoryid, productprice;
+
+
